@@ -17,12 +17,12 @@ export const createTask = async (req, res) => {
     res.json(savedTask);
  };
 export const updateTask = async (req, res) => {
-    const task = await Task.findByIdAndUpdate(req.params.id);
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if(!task) return res.status(404).json({message: "Task not found"});
     res.json(task);
  };
 export const deleteTask = async (req, res) => { 
-    const task = await Task.findByIdAndDelete(req.params.id, req.body, {new: true});
+    const task = await Task.findByIdAndDelete(req.params.id, req.body);
     if (!task) return res.status(404).json({ message: "Task not found" });
     return res.sendStatus(204);
 };
